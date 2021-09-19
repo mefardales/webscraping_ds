@@ -1,5 +1,5 @@
 import requests
 
-web_site = requests.get("www.google.com")
-
-print(web_site)
+url = 'http://www.webscrapingfordatascience.com/basichttp/' 
+r = requests.get(url)
+print(r.text)
