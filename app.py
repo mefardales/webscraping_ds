@@ -1,2 +1,5 @@
-print ("Hi")
-print ("Hola mundo cruel")
+import requests
+
+web_site = requests.get("www.google.com")
+
+print(web_site)
