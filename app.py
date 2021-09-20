@@ -1,10 +1,20 @@
 import requests
-from urllib.parse import quote_plus 
 
-url = 'http://www.webscrapingfordatascience.com/paramhttp/' 
-raw_string = "File System"
-parameter = {
-    'query' : 'esto es una prueba'
+
+address = {    
+    1: 'https://notiremedios.com/QXpa',
+    2: 'https://notiremedios.com/Jk8UGgCK',
+    3: 'https://notiremedios.com/Ammeg',
+    4: 'https://notiremedios.com/uCqm',
+    5:'https://notiremedios.com/5XLWiA'
 }
-r = requests.get(url, params=parameter)
-print(r.text)
+i = 0
+for v in address.values():
+    try:
+        r = requests.get(v)
+        print (f'--> {v}')
+        print(f'Accedio {i} veces')
+        print("Ok !!!")
+        i += 1
+    except:
+        print("Error :( ")
