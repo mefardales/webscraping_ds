@@ -4,7 +4,7 @@ import json
 
 url = 'https://en.wikipedia.org/w/index.php' + \
       '?title=List_of_Game_of_Thrones_episodes&oldid=802553687'
-#url = 'https://www.kdnuggets.com/2017/03/structural-equation-modeling.html'      
+#url = 'https://www.kdnuggets.com/2017/03/structural-equation-modeling.html'
 r = requests.get(url)
 html_contents = r.text
 html_soup = BeautifulSoup(html_contents, 'html.parser')
@@ -27,25 +27,46 @@ def extract_tables(class_name):
             for col in row.find_all(['th','td']):
                 values.append(col.text)
             if values:
-                episodes_dict = {headers[i]:values[i] for i in 
+                episodes_dict = {headers[i]:values[i] for i in
                                 range(len(values))}
                 episodes.append(episodes_dict)
     #show results
     for episode in  episodes:
         print(episode)
-        
+    
     with open('episodes.json','w') as f:
         f.write(json.dumps(episodes))
-        
+    
 def extract_links():
     links = []
     ep_links = html_soup.find_all('a')
     for ep_link in ep_links:
         links.append(ep_link.get('href'))
-    links_dict = {i:links[i] for i in range(len(links))}   
+    links_dict = {i:links[i] for i in range(len(links))}
     print (links_dict)
-
+    
+def img_extract():
+    img = []
+    ep_imgs = html_soup.find_all('img')
+    for ep_img in ep_imgs:
+        img.append(ep_img.get('src'))
+    img_dict = {i:img[i] for i in range(len(img))}
+    print(img_dict)
+    
+def rating_extract():
+    rating = []
+    tr = []
+    headers = []
+    ep_ratings = html_soup.find('table',class_="wikitable plainrowheaders")
+    # Fetching headers from table
+    for h in ep_ratings:
+        for header in h.find('tr').find_all('th'):
+            headers.append(header.text)
+    print(headers)
+    
 #Main
 if __name__ == '__main__':
     #extract_tables(class_name='wikiepisodetable')
-    extract_links()
+    #extract_links()
+    #img_extract()
+    rating_extract()
