@@ -53,6 +53,7 @@ def img_extract():
     img_dict = {i:img[i] for i in range(len(img))}
     print(img_dict)
     
+#TODO
 def rating_extract():
     rating = []
     tr = []
@@ -61,8 +62,10 @@ def rating_extract():
     # Fetching headers from table
     for h in ep_ratings:
         for header in h.find('tr').find_all('th'):
-            headers.append(header.text)
-    print(headers)
+            print(header)
+            #headers.append(header.text)
+            
+    #print(headers)
     
 #Main
 if __name__ == '__main__':
