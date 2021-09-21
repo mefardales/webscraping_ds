@@ -55,16 +55,21 @@ def img_extract():
     
 #TODO
 def rating_extract():
-    rating = []
-    tr = []
+    rating = {}
     headers = []
     ep_ratings = html_soup.find('table',class_="wikitable plainrowheaders")
     # Fetching headers from table
-    for h in ep_ratings:
-        for header in h.find('tr').find_all('th'):
-            print(header)
-            #headers.append(header.text)
-            
+    row = ep_ratings.find_all('tr')
+    #Start by fetching the header cells from the first row
+    #to determine the field names
+    for header in ep_ratings.find_all('tr'):
+        for td_head in header.find_all('td'):
+            headers.append(td_head.text)
+    
+    ''' rating = {i:headers[i] for i in range(len(headers))}
+    print(rating)
+    with open('rating.json','w') as f:
+        f.write(json.dumps(rating)) '''
     #print(headers)
     
 #Main
