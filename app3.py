@@ -2,9 +2,9 @@ import requests
 from bs4 import BeautifulSoup
 import json
 
-#url = 'https://en.wikipedia.org/w/index.php' + \
-    #  '?title=List_of_Game_of_Thrones_episodes&oldid=802553687'
-url = 'https://www.kdnuggets.com/2017/03/structural-equation-modeling.html'      
+url = 'https://en.wikipedia.org/w/index.php' + \
+      '?title=List_of_Game_of_Thrones_episodes&oldid=802553687'
+#url = 'https://www.kdnuggets.com/2017/03/structural-equation-modeling.html'      
 r = requests.get(url)
 html_contents = r.text
 html_soup = BeautifulSoup(html_contents, 'html.parser')
@@ -42,7 +42,7 @@ def extract_links():
     ep_links = html_soup.find_all('a')
     for ep_link in ep_links:
         links.append(ep_link.get('href'))
-    links_dict = {i:links[i] for i in range(len(ep_links))}   
+    links_dict = {i:links[i] for i in range(len(links))}   
     print (links_dict)
 
 #Main
