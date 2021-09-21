@@ -7,9 +7,6 @@ r = requests.get(url)
 html_contents = r.text
 html_soup = BeautifulSoup(html_contents, 'html.parser')
 
-for h in html_soup.find_all(['h1']):
-    print (h.attrs['id'])
-
 print (" CITATIONS ")
 cites = html_soup.find_all('cite', class_='citation', limit=5)
 for citation in cites:
