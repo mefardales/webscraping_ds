@@ -66,16 +66,24 @@ def rating_extract():
         for td_head in header.find_all('td'):
             headers.append(td_head.text)
             print(headers)
-    
     ''' rating = {i:headers[i] for i in range(len(headers))}
     print(rating)
     with open('rating.json','w') as f:
         f.write(json.dumps(rating)) '''
     
+def find_all_a():
+    a_labels = html_soup.select('a')
+    print(a_labels)
     
+def cite_selector():
+    tags = [t for t in html_soup.select('cite a[href]')
+            if 'nofollow' in t.get('rel',[])]
+    return tags
 #Main
 if __name__ == '__main__':
     #extract_tables(class_name='wikiepisodetable')
     #extract_links()
     #img_extract()
-    rating_extract()
+    #rating_extract()
+    find_all_a()
+    #cite_selector()
