@@ -3,8 +3,6 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import re
 
-
-
 url = 'https://www.expedia.mx/Hotel-Search?SEMDTL=a112476355771.b1119036740775.g1kwd-63345650.l1.e1c.m1Cj0KCQjwqKuKBhCxARIsACf4XuGd_D6skiKB1K69LKWfbtaMPqreZMZRgnXqA0RlWzbk52fed-QcWaIaAn2HEALw_wcB.r13de053073ce1be06c242b94f6a368fd5cad9e1c6619f8e24ec5f6e53fe78386b.c1fobt311GDgJok3O3AxaHbw.j11010116.k1.d1502801818899.h1e.i1.n1.o1.p1.q1.s1.t1.x1.f1.u1.v1.w1&destination=M%C3%A9xico&endDate=2021-10-07&gclid=Cj0KCQjwqKuKBhCxARIsACf4XuGd_D6skiKB1K69LKWfbtaMPqreZMZRgnXqA0RlWzbk52fed-QcWaIaAn2HEALw_wcB&locale=es_MX&regionId=117&semcid=MX.UB.GOOGLE.DT-c-ES.HOTEL&semdtl=&siteid=12&sort=RECOMMENDED&startDate=2021-10-06&theme=&useRewards=false&userIntent='
 
 r = requests.get(url)
@@ -27,21 +25,14 @@ try:
     hotel_price  = [hotel_price[0].find_all('span',class_="uitk-cell loyalty-display-price all-cell-shrink") for hotel_price in hotel_prices]
     hotel_p = [h_p[0].text for h_p in hotel_price]
     
-    #cleaning noise characters 
-    cleaned_hotel_p = []
-    for i in hotel_p:
-        cleaned_hotel_p.append(re.sub('[A-Z\$]','',i))
-        
+    #remove noise characters 
+    clean = list(map(lambda hotel_p: re.sub('[A-Z\$]','',hotel_p),hotel_p))
     #Creating a Dataframe
     df = pd.DataFrame({
         'hotel':h_item_name,
-        'precio':cleaned_hotel_p
+        'precio':clean
     })
 
     print(df)
 except TimeoutError as e:
     print(f'Error !!!{e} :(')
-
-
-
-#<span aria-hidden="true" class="uitk-cell loyalty-display-price all-cell-shrink" data-stid="price-lockup-text">MXN$1,798</span>
