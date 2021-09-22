@@ -65,12 +65,13 @@ def rating_extract():
     for header in ep_ratings.find_all('tr'):
         for td_head in header.find_all('td'):
             headers.append(td_head.text)
+            print(headers)
     
     ''' rating = {i:headers[i] for i in range(len(headers))}
     print(rating)
     with open('rating.json','w') as f:
         f.write(json.dumps(rating)) '''
-    #print(headers)
+    
     
 #Main
 if __name__ == '__main__':
