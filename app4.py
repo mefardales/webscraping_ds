@@ -33,7 +33,7 @@ try:
 
     print(df)
 except TimeoutError as e:
-    print(f'Error con la conexion !!!{e}')
+    print(f'Error !!!{e} :( ')
 
 
 
